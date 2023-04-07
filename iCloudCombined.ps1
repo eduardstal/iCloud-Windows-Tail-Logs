@@ -1,7 +1,7 @@
 $folderPath = "C:\Users\{User}\AppData\Local\Packages\{iCloud Package Name}\LocalCache\Local\Logs"
 $globPattern = "iCloud*.**.log"
 $maxFileAgeHours = 1
-$pathRegex = '(?<![^\s])[A-Za-z]:\\(?:[^\\/:*?"<>|\r\n]+\\)*[^\\/:*?"<>|\r\n]*'
+$pathRegex = '(?<![A-Za-z0-9])([A-Za-z]:\\(?:[^\s\\/:*?"<>|\r\n]+\\)*[^\s\\/:*?"<>|\r\n]*)'
 
 function Monitor-Files {
     param (
@@ -28,7 +28,7 @@ function Monitor-Files {
             for ($i = 0; $i -lt $fileReaders.Count; $i++) {
                 while ($null -ne ($line = $fileReaders[$i].ReadLine())) {
                     $fileName = ($files[$i].Name).PadRight(30)
-                    
+
                     if ($line -match "ERROR") {
                         $foregroundColor = "Red"
                     } elseif ($line -match "WARN") {
@@ -37,9 +37,18 @@ function Monitor-Files {
                         $foregroundColor = "Green"
                     }
 
-                    $formattedLine = $line -replace $pathRegex, { Write-Host -NoNewline -ForegroundColor Blue $_.Value; $_.Value }
                     Write-Host -NoNewline -ForegroundColor $foregroundColor $fileName
-                    Write-Host $formattedLine
+
+                    $tokens = $line -split $pathRegex
+                    for ($j = 0; $j -lt $tokens.Count; $j++) {
+                        if ($tokens[$j] -match $pathRegex) {
+                            Write-Host -NoNewline -ForegroundColor Blue $tokens[$j]
+                        } else {
+                            Write-Host -NoNewline -ForegroundColor $foregroundColor $tokens[$j]
+                        }
+                    }
+
+                    Write-Host
                 }
             }
             Start-Sleep -Milliseconds 500
