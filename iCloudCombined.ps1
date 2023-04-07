@@ -30,6 +30,8 @@ function Monitor-Files {
                     
                     if ($line -match "ERROR") {
                         Write-Host "$fileName $line" -ForegroundColor Red
+                    } elseif ($line -match "WARN") {
+                        Write-Host "$fileName $line" -ForegroundColor Yellow
                     } else {
                         Write-Host "$fileName $line" -ForegroundColor Green
                     }
