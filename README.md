@@ -1,7 +1,7 @@
 # iCloud-Windows-Tail-Logs
 Simple PowerShell iCloud for Windows Log Tail
 
-This PowerShell script monitors and displays the content of log files in a specified folder that match a given filename pattern and have been modified within the last 4 hours. It continuously reads new lines in real-time and displays them in the terminal with green text. If a line contains the word "ERROR", the script displays that line in red text, making it easier to identify errors in the log files.
+This PowerShell script monitors and displays the content of log files in a specified folder that match a given filename pattern and have been modified within the last 4 hours. It continuously reads new lines in real-time and displays them in the terminal with green text. If a line contains the word "ERROR", the script displays that line in red text, in case of "WARN" the line will be yellow, making it easier to identify errors in the log files.
 
 ## Usage
 Save the script as LogFileMonitor.ps1 in your desired location.
