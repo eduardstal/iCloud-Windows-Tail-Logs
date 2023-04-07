@@ -1,5 +1,9 @@
 $folderPath = "C:\Users\{User}\AppData\Local\Packages\{iCloud Package Name}\LocalCache\Local\Logs"
 $globPattern = "iCloud*.**.log"
+#$globPattern = "iCloudDrive.*.log"
+#$globPattern = "iCloudPhotos.*.log"
+#$globPattern = "iCloudServices.*.log"
+#$globPattern = "*.log"
 $maxFileAgeHours = 1
 $pathRegex = '(?<![A-Za-z0-9])([A-Za-z]:\\(?:[^\s\\/:*?"<>|\r\n]+\\)*[^\s\\/:*?"<>|\r\n]*)'
 
